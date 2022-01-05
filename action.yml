@@ -1,5 +1,5 @@
 name: 'Send message to google chat'
-description: 'Sends a message about the availability of a new build to the chat.'
+description: 'Sends a message about the availability of a new build to a chat.'
 author: '[Inmost]'
 
 inputs:
