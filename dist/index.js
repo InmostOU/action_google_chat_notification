@@ -4802,9 +4802,6 @@ async function sendCardMessage() {
 
 async function main() {
     await sendCardMessage();
-
-    console.log('HEAD_COMMIT:', HEAD_COMMIT);
-    console.log('github.context.ref:', github.context.ref);
 }
 
 main()
