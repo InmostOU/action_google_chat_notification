@@ -1,0 +1,19 @@
+name: Test
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - 'main'
+  pull_request:
+    types: [ opened ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send message to google chat
+        uses: InmostOU/action_google_chat_notification@main
+        with:
+          WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}

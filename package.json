@@ -1,0 +1,28 @@
+{
+  "name": "action_google_chat_notification",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "scripts": {
+    "build": "ncc build src/action.js -o dist",
+    "run-debug": "nodemon src/action.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/InmostOU/action_google_chat_notification.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/InmostOU/action_google_chat_notification/issues"
+  },
+  "homepage": "https://github.com/InmostOU/action_google_chat_notification#readme",
+  "devDependencies": {
+    "@actions/core": "^1.6.0",
+    "@actions/github": "^5.0.0",
+    "@vercel/ncc": "^0.33.0"
+  },
+  "dependencies": {
+    "axios": "^0.24.0"
+  }
+}

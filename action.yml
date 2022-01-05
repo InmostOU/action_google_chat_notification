@@ -1,0 +1,12 @@
+name: 'Send message to google chat'
+description: 'Sends a message about the availability of a new build to the chat.'
+author: '[Inmost]'
+
+inputs:
+  WEBHOOK_URL:
+    description: 'Google Chat Webhook'
+    required: true
+
+runs:
+  using: 'node12'
+  main: 'dist/index.js'
