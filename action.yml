@@ -6,6 +6,12 @@ inputs:
   WEBHOOK_URL:
     description: 'Google Chat Webhook'
     required: true
+  HEAD_COMMIT:
+    description: 'Git Commit Info'
+    required: true
+  APPLICATION_TYPE:
+    description: 'Can be [MOBILE, SERVER, WEB]'
+    required: true
 
 runs:
   using: 'node12'

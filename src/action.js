@@ -3,21 +3,68 @@ const github = require('@actions/github');
 const axios = require('axios');
 
 const WEBHOOK_URL = core.getInput('WEBHOOK_URL') || process.env.WEBHOOK_URL;
+const APPLICATION_TYPE = core.getInput('APPLICATION_TYPE') || process.env.APPLICATION_TYPE;
 const HEAD_COMMIT = core.getInput('HEAD_COMMIT') ? JSON.parse(core.getInput('HEAD_COMMIT')) : JSON.parse(process.env.HEAD_COMMIT);
 if (HEAD_COMMIT === undefined) {
     throw new Error('HEAD_COMMIT not found');
 }
 
-const data = {
-    'text': 'Hello from a Node script! <users/105666000256702527739>',
-};
+let serverType;
+if (github.context.ref?.includes('main')) {
+    serverType = '<font color=\"#e20f0f\">Prod</font>';
+} else if (github.context.ref?.includes('dev')) {
+    serverType = '<font color=\"#0fe279\">Dev</font>';
+} else {
+    throw new Error('git ref branch is incorrect:', github.context.ref);
+}
 
-async function main() {
-    await axios.post(WEBHOOK_URL, data, {
+let message;
+switch (APPLICATION_TYPE) {
+    case 'MOBILE':
+        message = `Новая версия <font color=\"#0090ff\">мобильного приложения</font>\n доступна для тестирования`;
+        break;
+    case 'SERVER':
+        message = `Новая версия <font color=\"#0090ff\">бекенда</font> доступна для\n тестирования`;
+        break;
+    case 'WEB':
+        message = `Новая версия <font color=\"#0090ff\">сайта</font> доступна для\n тестирования`;
+        break;
+    default:
+        throw new Error('APPLICATION_TYPE not found');
+}
+
+async function sendCardMessage() {
+    await axios.post(WEBHOOK_URL, {
+        "cards": [
+            {
+                "sections": [
+                    {
+                        "widgets": [
+                            {
+                                "keyValue": {
+                                    "content": serverType,
+                                }
+                            },
+                            {
+                                "keyValue": {
+                                    "content": message,
+                                    "icon": "STAR",
+                                },
+                            },
+                        ]
+                    }
+                ]
+            }
+        ]
+    }, {
         headers: {
             'Content-Type': 'application/json; charset=UTF-8',
         }
     });
+}
+
+async function main() {
+    await sendCardMessage();
 
     console.log('HEAD_COMMIT:', HEAD_COMMIT);
     console.log('github.context.ref:', github.context.ref);
