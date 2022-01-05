@@ -4770,8 +4770,16 @@ switch (APPLICATION_TYPE) {
         throw new Error('APPLICATION_TYPE not found');
 }
 
+async function sendMessage(data) {
+    await axios.post(WEBHOOK_URL, data, {
+        headers: {
+            'Content-Type': 'application/json; charset=UTF-8',
+        }
+    });
+}
+
 async function sendCardMessage() {
-    await axios.post(WEBHOOK_URL, {
+    await sendMessage({
         "cards": [
             {
                 "sections": [
@@ -4793,15 +4801,18 @@ async function sendCardMessage() {
                 ]
             }
         ]
-    }, {
-        headers: {
-            'Content-Type': 'application/json; charset=UTF-8',
-        }
+    });
+}
+
+async function sendTagMessage() {
+    await sendMessage({
+        'text': '<users/all>',
     });
 }
 
 async function main() {
     await sendCardMessage();
+    await sendTagMessage();
 }
 
 main()
