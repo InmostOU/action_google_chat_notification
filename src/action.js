@@ -19,7 +19,7 @@ if (BRANCH_REF.includes('main')) {
 }
 
 let message;
-switch (APPLICATION_TYPE) {
+switch (APPLICATION_TYPE.toString()) {
     case 'MOBILE':
         message = `Новая версия <font color=\"#0090ff\">мобильного приложения</font>\n доступна для тестирования`;
         break;
