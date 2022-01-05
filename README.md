@@ -1,4 +1,4 @@
-# google-drive-sheets-action
+# action_google_chat_notification
 
 This action upload add rows in the end of your sheet
 
