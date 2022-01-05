@@ -16,5 +16,6 @@ jobs:
         uses: InmostOU/action_google_chat_notification@main
         with:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
+          APPLICATION_TYPE: ${{ secrets.APPLICATION_TYPE }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
           BRANCH_REF: ${{ github.ref }}
