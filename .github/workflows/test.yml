@@ -17,3 +17,4 @@ jobs:
         with:
           WEBHOOK_URL: ${{ secrets.WEBHOOK_URL }}
           HEAD_COMMIT: ${{ toJSON(github.event.head_commit) }}
+          BRANCH_REF: ${{ github.ref }}

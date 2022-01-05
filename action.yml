@@ -12,6 +12,9 @@ inputs:
   APPLICATION_TYPE:
     description: 'Can be [MOBILE, SERVER, WEB]'
     required: true
+  BRANCH_REF:
+    description: 'Branch ref'
+    required: true
 
 runs:
   using: 'node12'

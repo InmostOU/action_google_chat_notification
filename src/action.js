@@ -1,18 +1,18 @@
 const core = require('@actions/core');
-const github = require('@actions/github');
 const axios = require('axios');
 
 const WEBHOOK_URL = core.getInput('WEBHOOK_URL') || process.env.WEBHOOK_URL;
 const APPLICATION_TYPE = core.getInput('APPLICATION_TYPE') || process.env.APPLICATION_TYPE;
+const BRANCH_REF = core.getInput('BRANCH_REF') || process.env.BRANCH_REF;
 const HEAD_COMMIT = core.getInput('HEAD_COMMIT') ? JSON.parse(core.getInput('HEAD_COMMIT')) : JSON.parse(process.env.HEAD_COMMIT);
 if (HEAD_COMMIT === undefined) {
     throw new Error('HEAD_COMMIT not found');
 }
 
 let serverType;
-if (github.context.ref?.includes('main')) {
+if (BRANCH_REF.includes('main')) {
     serverType = '<font color=\"#e20f0f\">Prod</font>';
-} else if (github.context.ref?.includes('dev')) {
+} else if (BRANCH_REF.includes('dev')) {
     serverType = '<font color=\"#0fe279\">Dev</font>';
 } else {
     throw new Error('git ref branch is incorrect:', github.context.ref);
